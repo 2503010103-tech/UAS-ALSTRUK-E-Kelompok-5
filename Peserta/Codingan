@@ -1,0 +1,130 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Peserta {
+    string nim;
+    string nama;
+    string prodi;
+    string event;
+};
+
+Peserta peserta[100];
+int jumlahPeserta = 0;
+
+// Tambah Peserta
+void tambahPeserta() {
+    cout << "\n=== DAFTAR PESERTA ===\n";
+
+    cout << "NIM            : ";
+    cin >> peserta[jumlahPeserta].nim;
+    cin.ignore();
+
+    cout << "Nama           : ";
+    getline(cin, peserta[jumlahPeserta].nama);
+
+    cout << "Program Studi  : ";
+    getline(cin, peserta[jumlahPeserta].prodi);
+
+    cout << "Nama Event     : ";
+    getline(cin, peserta[jumlahPeserta].event);
+
+    jumlahPeserta++;
+
+    cout << "\nPeserta berhasil didaftarkan!\n";
+}
+
+// Tampilkan Peserta
+void tampilPeserta() {
+
+    if (jumlahPeserta == 0) {
+        cout << "\nBelum ada peserta.\n";
+        return;
+    }
+
+    cout << "\n========== DAFTAR PESERTA ==========\n";
+
+    for (int i = 0; i < jumlahPeserta; i++) {
+        cout << "\nPeserta ke-" << i + 1 << endl;
+        cout << "NIM   : " << peserta[i].nim << endl;
+        cout << "Nama  : " << peserta[i].nama << endl;
+        cout << "Prodi : " << peserta[i].prodi << endl;
+        cout << "Event : " << peserta[i].event << endl;
+    }
+}
+
+// Hapus Peserta
+void hapusPeserta() {
+
+    if (jumlahPeserta == 0) {
+        cout << "\nData peserta kosong.\n";
+        return;
+    }
+
+    tampilPeserta();
+
+    int pilih;
+
+    cout << "\nMasukkan nomor peserta yang ingin dihapus : ";
+    cin >> pilih;
+
+    if (pilih < 1 || pilih > jumlahPeserta) {
+        cout << "Nomor tidak valid!\n";
+        return;
+    }
+
+    for (int i = pilih - 1; i < jumlahPeserta - 1; i++) {
+        peserta[i] = peserta[i + 1];
+    }
+
+    jumlahPeserta--;
+
+    cout << "Peserta berhasil dihapus.\n";
+}
+
+// Menu Peserta
+void menuPeserta() {
+
+    int pilihan;
+
+    do {
+        cout << "\n=====================================\n";
+        cout << "        MENU PESERTA EVENT\n";
+        cout << "=====================================\n";
+        cout << "1. Daftar Peserta\n";
+        cout << "2. Lihat Peserta\n";
+        cout << "3. Hapus Peserta\n";
+        cout << "4. Kembali\n";
+        cout << "Pilih Menu : ";
+        cin >> pilihan;
+
+        switch (pilihan) {
+            case 1:
+                tambahPeserta();
+                break;
+
+            case 2:
+                tampilPeserta();
+                break;
+
+            case 3:
+                hapusPeserta();
+                break;
+
+            case 4:
+                cout << "Kembali ke menu utama...\n";
+                break;
+
+            default:
+                cout << "Menu tidak tersedia!\n";
+        }
+
+    } while (pilihan != 4);
+}
+
+int main() {
+
+    menuPeserta();
+
+    return 0;
+}
